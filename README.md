@@ -1,1 +1,2 @@
 # Bank_System_Project_MainScreen
+This project focused on developing a robust banking system in C++ using Object-Oriented Programming (OOP) principles. The system includes key functionalities such as displaying the client list, searching for clients, adding and updating client information, and deleting clients. It also provides efficient management of user features. Additionally, the system supports critical banking operations like deposits and withdrawals, ensuring effective management of account balances.

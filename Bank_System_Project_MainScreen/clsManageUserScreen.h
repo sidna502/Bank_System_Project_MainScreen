@@ -1,12 +1,12 @@
 #pragma once
 #include <iostream>
-#include "clsScreen.h";
-#include "D:\Prorgramming_device\programing\OOP_Applications\InputValidate\InputValidate\clsInputValidate.h";
-#include "clsUserListScreen.h";
-#include "clsAddNewUserScreen.h";
-#include "clsDeleteUserScreen.h";
-#include "clsUpdateUserScreen.h";
-#include "clsFindUserScreen.h";
+#include "clsScreen.h"
+#include "D:\Prorgramming_device\programing\OOP_Applications\InputValidate\InputValidate\clsInputValidate.h"
+#include "clsUserListScreen.h"
+#include "clsAddNewUserScreen.h"
+#include "clsDeleteUserScreen.h"
+#include "clsUpdateUserScreen.h"
+#include "clsFindUserScreen.h"
 
 
 class clsManageUserScreen : protected clsScreen
@@ -81,6 +81,11 @@ class clsManageUserScreen : protected clsScreen
 public:
 	static void ManageUserMenueScreen()
 	{
+		
+		if (!CheckAccessRight(clsUser::enPermissions::pManageUser))
+		{
+			return;// this will exit the function and it will not continue
+		}
 		system("cls");
 		_DrawScreenHeader("Manage User Screen");
 		cout << setw(37) << left<< "" << "=======================================================\n";

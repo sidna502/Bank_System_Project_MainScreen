@@ -43,6 +43,11 @@ class clsUpdateClientScreen : protected clsScreen
 public:
 	static void ShowUpdateClientScreen()
 	{
+		if (!CheckAccessRight(clsUser::enPermissions::pUpdateClient))
+		{
+			return;
+		}
+		
 		_DrawScreenHeader("Update Client Screen");
 		cout << "Enter Account Number ? ";
 		string AccountNumber = clsInputValidate::ReadString();

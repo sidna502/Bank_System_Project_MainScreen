@@ -18,6 +18,11 @@ class clsClientListScreen: protected clsScreen
 public:
 	static void ShowClientListScreen()
 	{
+		if (!CheckAccessRight(clsUser::enPermissions::pListClient))
+		{
+			return;
+		}
+		
 		vector <clsBankClient>vClient = clsBankClient::GetClientList();
 		string Title = "Client List Screen";
 		string Subtitle = "\t" + to_string(vClient.size()) + " Client List";

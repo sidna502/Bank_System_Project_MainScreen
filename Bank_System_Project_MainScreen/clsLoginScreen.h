@@ -14,24 +14,27 @@ class clsLoginScreen : protected clsScreen
 		do
 		{
 			if (FaildLogin)
+			{
+				system("cls");
+				_DrawScreenHeader("Login Screen");
 				cout << "\nInvalid UserName/Passeword\n";
-
+			}
 			cout << "\nEnter User Name ? ";
 			UserName = clsInputValidate::ReadString();
 
 			cout << "\nEnter Passeword ? ";
 			Passeword = clsInputValidate::ReadString();
 
-			/*CurrentUser = clsUser::Find(UserName, Passeword);*/
-			clsUser User = clsUser::Find(UserName, Passeword);
-			FaildLogin = User.IsEmpty();
+			CurrentUser = clsUser::Find(UserName, Passeword);
+
+			FaildLogin = CurrentUser.IsEmpty();
 		} while (FaildLogin);
 		clsMainScreen::MainMenueScreen();
+		//ShowLoginScreen();
 	}
 public:
 	static void ShowLoginScreen()
 	{
-		system("cls");
 		_DrawScreenHeader("Login Screen");
 		_Login();
 	}

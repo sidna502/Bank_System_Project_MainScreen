@@ -17,30 +17,23 @@ class clsDeleteClientScreen : protected clsScreen
 		cout << "\nPin Code.........: " << Client.PinCode;
 		cout << "\nAccount Balance..: " << Client.AccountBalance;
 		cout << "\n___________________________________\n";
-
-		/*cout << "\nClient Card:";
-		cout << "\n___________________";
-		cout << "\nFirstName   : " << Client.FirstName;
-		cout << "\nLastName    : " << Client.LastName;
-		cout << "\nFull Name   : " << Client.FullName();
-		cout << "\nEmail       : " << Client.Email;
-		cout << "\nPhone       : " << Client.Phone;
-		cout << "\nAcc. Number : " << Client.AccountNumber();
-		cout << "\nPassword    : " << Client.PinCode;
-		cout << "\nBalance     : " << Client.AccountBalance;
-		cout << "\n___________________\n";*/
 	}
 public:
 	static void ShowDeleteClientScreen()
 	{
+		if (!CheckAccessRight(clsUser::enPermissions::pDeleteClient))
+		{
+			return;
+		}
+
 		_DrawScreenHeader("Delete Client Screen");
 		cout << "Enter Account number ? ";
 		string AccountNumber = clsInputValidate::ReadString();
-		/*while (!clsBankClient::IsClientExist(AccountNumber))
+		while (!clsBankClient::IsClientExist(AccountNumber))
 		{
 			cout << "\nAccount number not exist, ente another one ? ";
 			AccountNumber = clsInputValidate::ReadString();
-		}*/
+		}
 		clsBankClient Client = clsBankClient::Find(AccountNumber);
 		char answer = 'y';
 		_PrintClientRecord(Client);

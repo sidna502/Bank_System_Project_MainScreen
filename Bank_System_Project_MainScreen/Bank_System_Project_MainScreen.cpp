@@ -4,6 +4,9 @@
 int main()
 {
     system("color 5f");
-    clsLoginScreen::ShowLoginScreen();
+	while (true)
+	{
+		clsLoginScreen::ShowLoginScreen();
+	}
     system("pause > 0");
 }

@@ -1,13 +1,14 @@
 #pragma once
 #include <iomanip>
-#include "clsScreen.h";
-#include "clsClientListScreen.h";
-#include "clsAddNewClientScreen.h";
-#include "clsDeleteClientScreen.h";
-#include "clsUpdateClientScreen.h";
-#include "clsFindClientScreen.h";
-#include "clsTransactionScreen.h";
-#include "clsManageUserScreen.h";
+#include "clsScreen.h"
+#include "clsClientListScreen.h"
+#include "clsAddNewClientScreen.h"
+#include "clsDeleteClientScreen.h"
+#include "clsUpdateClientScreen.h"
+#include "clsFindClientScreen.h"
+#include "clsTransactionScreen.h"
+#include "clsManageUserScreen.h"
+#include "Global.h"
 
 class clsMainScreen : protected clsScreen
 {
@@ -44,9 +45,14 @@ class clsMainScreen : protected clsScreen
 	{
 		clsManageUserScreen::ManageUserMenueScreen();
 	}
-	static void _ShowLogOutScreen()
+	/*static void _ShowLogOutScreen()
 	{
 		cout << "Log out will be here...\n";
+	}*/
+	static void _Logout()
+	{
+		CurrentUser = clsUser::Find("", "");
+		
 	}
 	static void _PerforMainMenueOption(enMainMenueOptions Options)
 	{
@@ -55,43 +61,80 @@ class clsMainScreen : protected clsScreen
 		{
 		case enMainMenueOptions::eListClients:
 		{
+			/*if (!CheckAccessRight(clsUser::enPermissions::pListClient))
+			{
+				_GoBackToMainMenue();
+				return;
+			}*/
 			_ShowAllClientsScreen();
 			_GoBackToMainMenue();
 			break;
 		}
 		case enMainMenueOptions::eAddNewClient:
 
+		{
+			/*if (!CheckAccessRight(clsUser::enPermissions::pAddNewClient))
+			{
+				_GoBackToMainMenue();
+				return;
+			}*/
 			_ShowAddNewClientScreen();
 			_GoBackToMainMenue();
 			break;
+		}
 		case enMainMenueOptions::eDeleteClient:
-
+			
+			/*if (!CheckAccessRight(clsUser::enPermissions::pDeleteClient))
+			{
+				_GoBackToMainMenue();
+				return;
+			}*/
 			_ShowDeleteClientScreen();
 			_GoBackToMainMenue();
 			break;
 		case enMainMenueOptions::eUpdateClient:
-
+			/*if (!CheckAccessRight(clsUser::enPermissions::pUpdateClient))
+			{
+				_GoBackToMainMenue();
+				return;
+			}*/
 			_ShowUpdateClientScreen();
 			_GoBackToMainMenue();
 			break;
 		case enMainMenueOptions::eFindClient:
-
+			/*if (!CheckAccessRight(clsUser::enPermissions::pFindClient))
+			{
+				_GoBackToMainMenue();
+				return;
+			}*/
 			_ShowFindClientScreen();
 			_GoBackToMainMenue();
 			break;
 		case enMainMenueOptions::eTransactions:
-
+		{
+			/*if (!CheckAccessRight(clsUser::enPermissions::pTransactions))
+			{
+				_GoBackToMainMenue();
+				return;
+			}*/
 			_ShowTransactionsScreen();
-			MainMenueScreen();
+			_GoBackToMainMenue();
 			break;
+		}
 		case enMainMenueOptions::eManageUsers:
-
+		{
+			/*if (!CheckAccessRight(clsUser::enPermissions::pManageUser))
+			{
+				_GoBackToMainMenue();
+				return;
+			}*/
 			_ShowManageUsersScreen();
-			MainMenueScreen();
+			_GoBackToMainMenue();
 			break;
+		}
 		case enMainMenueOptions::eLogout:
 
-			_ShowEndScreen();
+			_Logout();
 			break;
 		}
 	}
@@ -102,10 +145,7 @@ class clsMainScreen : protected clsScreen
 		MainMenueScreen();
 
 	}
-	static void _ShowEndScreen()
-	{
-		cout << "End screen will be here...\n";
-	}
+	
 	static short _ReadOption()
 	{
 		cout << left << setw(37) << "" << "Choose what do you want to do from [1 to 8] ? ";

@@ -42,6 +42,11 @@ class clsAddNewClientScreen : protected clsScreen
 public:
 	static void ShowAddNewClientScreen()
 	{
+		if (!CheckAccessRight(clsUser::enPermissions::pAddNewClient))
+		{
+			return;
+		}
+
 		_DrawScreenHeader("Add New Client Screen");
 		string AccountNumber = "";
 		cout << "Enter AccountNumber ? ";

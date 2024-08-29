@@ -242,6 +242,14 @@ public:
 			}
 		}
 	}
-	
+	bool CheckAccessPermission(enPermissions Permission)
+	{
+		return ((this->Permissions == enPermissions::eAll) || ((this->Permissions & Permission) == Permission));
+		/*if (this->Permissions == enPermissions::eAll)
+			return true;
+		if ((this->Permissions & Permission) == Permission)
+			return true;
+		return false;*/
+	}
 };
 
