@@ -4,9 +4,14 @@
 int main()
 {
     system("color 5f");
-	while (true)
+	while (clsLoginScreen::ShowLoginScreen());
+
+	/*while (true)
 	{
-		clsLoginScreen::ShowLoginScreen();
-	}
+		if (!clsLoginScreen::ShowLoginScreen()) {
+			break;
+		}
+	}*/
+	return 0;
     system("pause > 0");
 }

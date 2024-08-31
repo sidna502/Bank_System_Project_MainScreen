@@ -59,6 +59,10 @@ class clsUpdateUserScreen : protected clsScreen
 		{
 			Permissions += clsUser::enPermissions::pManageUser;
 		}
+		if (clsInputValidate::ReadChoice("Login Register Screen ? "))
+		{
+			Permissions += clsUser::enPermissions::pLoginRegisterScreen;
+		}
 		return Permissions;
 	}
 	static void _PrintUser(clsUser User)

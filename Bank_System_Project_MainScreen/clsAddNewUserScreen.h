@@ -64,7 +64,10 @@ class clsAddNewUserScreen : protected clsScreen
 		{
 			Permissions += clsUser::enPermissions::pManageUser;
 		}
-
+		if (clsInputValidate::ReadChoice("Show Login Register Screen y/n ? "))
+		{
+			Permissions += clsUser::enPermissions::pLoginRegisterScreen;
+		}
 		return Permissions;
 	}
 	static void _PrintUserCard(clsUser User)
