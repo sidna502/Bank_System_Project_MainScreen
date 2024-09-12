@@ -25,7 +25,7 @@ class clsUser : public clsPerson
 	{
 		vector <string>vUserData = clsString::SplitString(Line, delim);
 		return clsUser(enMode::UpdateMode, vUserData[0], vUserData[1], vUserData[2], vUserData[3], vUserData[4],
-			vUserData[5], stoi(vUserData[6]));
+			clsUtil::DecryptText(vUserData[5]), stoi(vUserData[6]));
 	}
 	/*static clsUser _ConvertLineRegisterToUserObject(string Line, string delim = "#//#")
 	{
@@ -40,7 +40,7 @@ class clsUser : public clsPerson
 		vector <string>vLoginRegisterRecord = clsString::SplitString(Line, delim);
 		LoginRegisterRecord.DateTime = vLoginRegisterRecord[0];
 		LoginRegisterRecord.UserName = vLoginRegisterRecord[1];
-		LoginRegisterRecord.Passeword = vLoginRegisterRecord[2];
+		LoginRegisterRecord.Passeword = clsUtil::DecryptText(vLoginRegisterRecord[2]);
 		LoginRegisterRecord.Permissions = stoi(vLoginRegisterRecord[3]);
 		return LoginRegisterRecord;
 		
@@ -53,7 +53,7 @@ class clsUser : public clsPerson
 		UserRecord += User.Email + delim;
 		UserRecord += User.Phone + delim;
 		UserRecord += User.UserName + delim;
-		UserRecord += User.Passeword + delim;
+		UserRecord += clsUtil::EncryptText(User.Passeword) + delim;
 		UserRecord += to_string(User.Permissions);
 		return UserRecord;
 	}
@@ -62,10 +62,11 @@ class clsUser : public clsPerson
 		string LoginRecord = "";
 		LoginRecord += clsDate::GetSystemDateTimeString() + delim;
 		LoginRecord += UserName + delim;
-		LoginRecord += Passeword + delim;
+		LoginRecord += clsUtil::EncryptText(Passeword) + delim;
 		LoginRecord += to_string(Permissions);
 		return LoginRecord;
 	}
+	
 	static vector <clsUser>_LoadUserDataFromFile()
 	{
 		vector <clsUser>vUser;
@@ -316,6 +317,7 @@ public:
 			MyFile.close();
 		}
 	}
+	
 	struct stLoginRegisterRecord
 	{
 		string DateTime = "";
@@ -344,6 +346,8 @@ public:
 		return vLoginRegisterRecord;
 	}
 	
+
+
 	/*static vector<clsUser>GetLoginRegisterList()
 	{
 		return _LoadLoginRegisterFromFile();

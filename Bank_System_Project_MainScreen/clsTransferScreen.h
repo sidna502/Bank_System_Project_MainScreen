@@ -2,6 +2,8 @@
 #include "clsScreen.h"
 #include "clsUser.h"
 #include "clsBankClient.h"
+
+
 class clsTransferScreen : protected clsScreen
 {
 	static void _PrintClientRecord(clsBankClient Client)
@@ -13,8 +15,10 @@ class clsTransferScreen : protected clsScreen
 		cout << "Balance    : " << Client.AccountBalance<< endl;
 		cout << "_______________________________________\n";
 	}
-	static string _ReadAccountNumber()
+	static string _ReadAccountNumber(string Message)
 	{
+		cout << "\nPlease enter account Number to transfer ";
+		cout << Message + ": ";
 		string AccountNumber = clsInputValidate::ReadString();
 		while (!clsBankClient::IsClientExist(AccountNumber))
 		{
@@ -38,12 +42,17 @@ public:
 	static void TranferScreen()
 	{
 		_DrawScreenHeader("Transfer Screen");
-		cout << "\nPlease enter account Number to transfer from: ";
-		clsBankClient SourceClient = clsBankClient::Find(_ReadAccountNumber());
+		clsBankClient SourceClient = clsBankClient::Find(_ReadAccountNumber("From"));
 		_PrintClientRecord(SourceClient);
 
-		cout << "\nPlease enter account Number to transfer to: ";
-		clsBankClient DestinationClient = clsBankClient::Find(_ReadAccountNumber());
+		clsBankClient DestinationClient = clsBankClient::Find(_ReadAccountNumber("To"));
+		while (DestinationClient.AccountNumber() == SourceClient.AccountNumber())
+		{
+			cout << "\nYou cannot transfer to yourself\n";
+			cout << "Please another account Number to transfer to: ";
+			DestinationClient = clsBankClient::Find(_ReadAccountNumber("To"));
+		}
+
 		_PrintClientRecord(DestinationClient);
 
 		float Amount = ReadAmount(SourceClient);
@@ -53,7 +62,7 @@ public:
 		cin >> Answer;
 		if (toupper(Answer) == 'Y')
 		{
-			if (SourceClient.Transfer(Amount, DestinationClient))
+			if (SourceClient.Transfer(Amount, DestinationClient, CurrentUser.UserName))
 			{
 				cout << "\nTransfer done successfully\n";
 			}
@@ -63,7 +72,7 @@ public:
 		}
 		_PrintClientRecord(SourceClient);
 		_PrintClientRecord(DestinationClient);
-
+		
 	}
 };
 

@@ -20,7 +20,6 @@ class clsAddNewUserScreen : protected clsScreen
 
 		cout << "\nEnter Passeword ? ";
 		User.Passeword = clsInputValidate::ReadString();
-
 		cout << "\nEnter Permission ? ";
 		User.Permissions = _ReadPermissions();
 

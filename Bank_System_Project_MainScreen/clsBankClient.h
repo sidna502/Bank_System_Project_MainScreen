@@ -6,6 +6,7 @@
 #include "clsPerson.h";
 #include "D:\Prorgramming_device\programing\OOP_Applications\InputValidate\InputValidate\clsInputValidate.h";
 #include "D:\Prorgramming_device\programing\OOP_Couse\String_Library_Project\String_Library_Project\clsString.h";
+#include "Global.h"
 
 const string FileName = "Clients.txt";
 
@@ -22,7 +23,21 @@ class clsBankClient : public clsPerson
 	{
 		vector <string> vDataClient = clsString::SplitString(Line, delim);
 		return clsBankClient(enMode::UpdateMode, vDataClient[0], vDataClient[1], vDataClient[2], vDataClient[3],
-			vDataClient[4], vDataClient[5], stof(vDataClient[6]));
+			vDataClient[4], clsUtil::DecryptText(vDataClient[5]), stof(vDataClient[6]));
+	}
+	struct stTransferLogRecord;
+	static stTransferLogRecord _ConvertLoginTransferLineToClientObject(string Line, string delim = "#//#")
+	{
+		stTransferLogRecord LoginTransferRecord;
+		vector <string>vLoginTransferRecord = clsString::SplitString(Line, delim);
+		LoginTransferRecord.DateTime = vLoginTransferRecord[0];
+		LoginTransferRecord.SourceAccount = vLoginTransferRecord[1];
+		LoginTransferRecord.DestAccount = vLoginTransferRecord[2];
+		LoginTransferRecord.Amount = stof(vLoginTransferRecord[3]);
+		LoginTransferRecord.SoureceBalance = stof(vLoginTransferRecord[4]);
+		LoginTransferRecord.DestBalance = stof(vLoginTransferRecord[5]);
+		LoginTransferRecord.UserName = vLoginTransferRecord[6];
+		return LoginTransferRecord;
 	}
 	static string _ConvertClientObjectToLine(clsBankClient Client, string delim = "#//#")
 	{
@@ -32,9 +47,35 @@ class clsBankClient : public clsPerson
 		ClientRecord += Client.Email + delim;
 		ClientRecord += Client.Phone + delim;
 		ClientRecord += Client.AccountNumber() + delim;
-		ClientRecord += Client.PinCode + delim;
+		ClientRecord += clsUtil::EncryptText(Client.PinCode) + delim;
 		ClientRecord += to_string(Client.AccountBalance) ;
 		return ClientRecord;
+	}
+	string _PrepareTransferLogIn(clsBankClient DestinationClient, float Amount,string UserName, string delim = "#//#")
+	{
+		string LoginRecord = "";
+		LoginRecord += clsDate::GetSystemDateTimeString() + delim;
+		LoginRecord += AccountNumber() + delim;
+		LoginRecord += DestinationClient.AccountNumber() + delim;
+		LoginRecord += to_string(Amount) + delim;
+		LoginRecord += to_string(AccountBalance) + delim;
+		LoginRecord += to_string(DestinationClient.AccountBalance) + delim;
+		LoginRecord += UserName;
+		
+		return LoginRecord;
+	}
+	
+
+	void _RegisterTransferLogIn(clsBankClient DestinationClient, float Amount, string UserName)
+	{
+		string DataLine = _PrepareTransferLogIn(DestinationClient, Amount, UserName);
+		fstream MyFile;
+		MyFile.open("TransferLog.txt", ios::out | ios::app);
+		if (MyFile.is_open())
+		{
+			MyFile << DataLine << endl;
+			MyFile.close();
+		}
 	}
 	static void _AddDataLine(string DataLine)
 	{
@@ -255,13 +296,46 @@ public:
 		}
 		return TotalBalance;
 	}
-	bool Transfer(double Amount, clsBankClient& DestinationClient)
+	bool Transfer(double Amount, clsBankClient& DestinationClient, string UserName)
 	{
+		
+		//return (Amount > AccountBalance) ? false : (Withdraw(Amount), DestinationClient.Deposit(Amount), true);
+		
 		if (Amount > AccountBalance)
 			return false;
 		Withdraw(Amount);
 		DestinationClient.Deposit(Amount);
+		_RegisterTransferLogIn(DestinationClient, Amount, UserName);
 		return true;
+	}
+	struct stTransferLogRecord
+	{
+		string DateTime = "";
+		string SourceAccount = "";
+		string DestAccount = "";
+		string UserName = "";
+		float Amount = 0; 
+		float SoureceBalance = 0;
+		float DestBalance = 0;
+
+	};
+	static vector <stTransferLogRecord>GetLoginTransferList()
+	{
+		vector <stTransferLogRecord>vLoginTransferRecord;
+		stTransferLogRecord LoginTransferRecord;
+		string Line = "";
+		fstream MyFile;
+		MyFile.open("TransferLog.txt", ios::in);
+		if (MyFile.is_open())
+		{
+			while (getline(MyFile, Line))
+			{
+				LoginTransferRecord = _ConvertLoginTransferLineToClientObject(Line);
+				vLoginTransferRecord.push_back(LoginTransferRecord);
+			}
+			MyFile.close();
+		}
+		return vLoginTransferRecord;
 	}
 };
 
