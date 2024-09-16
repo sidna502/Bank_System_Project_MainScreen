@@ -37,7 +37,7 @@ class clsManageUserScreen : protected clsScreen
 	static short _ReadManageUserOption()
 	{
 		cout << setw(37) << "" << "Choose what do you want to do from [1 to 6] ? ";
-		short Choice = clsInputValidate::ReadShortNumberBetween(1, 6, "Out of range, enter a number beween [1 to 6] ? ");
+		short Choice = clsInputValidate<short>::ReadNumberBetween(1, 6, "Out of range, enter a number beween [1 to 6] ? ");
 		return Choice;
 	}
 	static void _GoBackToMainUserMenue()

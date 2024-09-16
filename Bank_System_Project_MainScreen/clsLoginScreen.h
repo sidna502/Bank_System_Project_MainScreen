@@ -29,10 +29,10 @@ class clsLoginScreen : protected clsScreen
 				}
 			}
 			cout << "\nEnter User Name ? ";
-			UserName = clsInputValidate::ReadString();
+			UserName = clsInputValidate<string>::ReadString();
 
 			cout << "\nEnter Passeword ? ";
-			Passeword = clsInputValidate::ReadString();
+			Passeword = clsInputValidate<string>::ReadString();
 
 			CurrentUser = clsUser::Find(UserName, Passeword);
 			

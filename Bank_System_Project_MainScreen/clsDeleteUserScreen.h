@@ -23,11 +23,11 @@ public:
 	{
 		_DrawScreenHeader("Delete User Screen");
 		cout << "Enter User Name ? ";
-		string UserName = clsInputValidate::ReadString();
+		string UserName = clsInputValidate<string>::ReadString();
 		while (!clsUser::IsUserExist(UserName))
 		{
 			cout << "\nUser does not exist, enter another one ? ";
-			UserName = clsInputValidate::ReadString();
+			UserName = clsInputValidate<string>::ReadString();
 		}
 		clsUser User = clsUser::Find(UserName);
 		_PrintUserCard(User);

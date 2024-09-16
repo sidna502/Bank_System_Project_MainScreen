@@ -19,22 +19,22 @@ class clsTransferScreen : protected clsScreen
 	{
 		cout << "\nPlease enter account Number to transfer ";
 		cout << Message + ": ";
-		string AccountNumber = clsInputValidate::ReadString();
+		string AccountNumber = clsInputValidate<string>::ReadString();
 		while (!clsBankClient::IsClientExist(AccountNumber))
 		{
 			cout << "\nNo Account Number found, Enter another one ? ";
-			string AccountNumber = clsInputValidate::ReadString();
+			string AccountNumber = clsInputValidate<string>::ReadString();
 		}
 		return AccountNumber;
 	}
 	static float ReadAmount(clsBankClient SourceClient)
 	{
 		cout << "\nEnter Transfer Amount ? ";
-		float Amount = clsInputValidate::ReadFloatNumber("Invalid Enter enter number again");
+		float Amount = clsInputValidate<float>::ReadNumber("Invalid Enter enter number again");
 		while (Amount > SourceClient.AccountBalance)
 		{
 			cout << "\nAccount Exceeds the available balnce, enter another one ? ";
-			Amount = clsInputValidate::ReadFloatNumber("Invalid Enter enter number again");
+			Amount = clsInputValidate<float>::ReadNumber("Invalid Enter enter number again");
 		}
 		return Amount;
 	}

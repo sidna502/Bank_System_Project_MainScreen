@@ -23,11 +23,11 @@ public:
 	{
 		_DrawScreenHeader("Find User Screen");
 		cout << "Enter User Name ? ";
-		string UserName = clsInputValidate::ReadString();
+		string UserName = clsInputValidate<string>::ReadString();
 		while (!clsUser::IsUserExist(UserName))
 		{
 			cout << "\nUser not found, enter another one ? "; 
-			UserName = clsInputValidate::ReadString();
+			UserName = clsInputValidate<string>::ReadString();
 		}
 		clsUser User = clsUser::Find(UserName);
 		if (!User.IsEmpty())

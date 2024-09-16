@@ -25,17 +25,17 @@ public:
 		_DrawScreenHeader("Deposit Screen");
 		double Amount = 0;
 		cout << "Enter Account Number ? ";
-		string AccountNumber = clsInputValidate::ReadString();
+		string AccountNumber = clsInputValidate<string>::ReadString();
 		while (!clsBankClient::IsClientExist(AccountNumber))
 		{
 			cout << "Account number not exist, enter another one ? ";
-			AccountNumber = clsInputValidate::ReadString();
+			AccountNumber = clsInputValidate<string>::ReadString();
 		}
 		clsBankClient Client = clsBankClient::Find(AccountNumber);
 		_PrintClientRecord(Client);
 
 		cout << "\nEnter deposit amount ? ";
-		Amount = clsInputValidate::ReadDblNumber();
+		Amount = clsInputValidate<double>::ReadNumber();
 		
 		char Answer = 'y';
 		cout << "Are you sure do you want to do this transaction y/n ? ";

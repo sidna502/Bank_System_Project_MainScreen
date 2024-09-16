@@ -7,58 +7,58 @@ class clsUpdateUserScreen : protected clsScreen
 	static void _ReadUserInfo(clsUser &User)
 	{
 		cout << "\nEnter First Name ? ";
-		User.FirstName = clsInputValidate::ReadString();
+		User.FirstName = clsInputValidate<string>::ReadString();
 
 		cout << "\nEnter Last Name ? ";
-		User.LastName = clsInputValidate::ReadString();
+		User.LastName = clsInputValidate<string>::ReadString();
 
 		cout << "\nEnter Email ? ";
-		User.Email = clsInputValidate::ReadString();
+		User.Email = clsInputValidate<string>::ReadString();
 
 		cout << "\nEnter Phone ? ";
-		User.Phone = clsInputValidate::ReadString();
+		User.Phone = clsInputValidate<string>::ReadString();
 
 		cout << "\nEnter Passeword ? ";
-		User.Passeword = clsInputValidate::ReadString();
+		User.Passeword = clsInputValidate<string>::ReadString();
 		cout << "\nEnter Permissins ? ";
 		User.Permissions = _ReadPermissionsToSet();
 	}
 	static int _ReadPermissionsToSet()
 	{
 		int Permissions = 0;
-		if (clsInputValidate::ReadChoice("Do you want to give full access ? "))
+		if (clsInputValidate<bool>::ReadChoice("Do you want to give full access ? "))
 			return -1;
 		
 		cout << "\nDo you want to give access to:\n";
-		if (clsInputValidate::ReadChoice("Show Client List ? "))
+		if (clsInputValidate<bool>::ReadChoice("Show Client List ? "))
 		{
 			Permissions += clsUser::enPermissions::pListClient;
 		}
-		if (clsInputValidate::ReadChoice("Add New Client ? "))
+		if (clsInputValidate<bool>::ReadChoice("Add New Client ? "))
 		{
 			Permissions += clsUser::enPermissions::pAddNewClient;
 		}
-		if (clsInputValidate::ReadChoice("Delete Client ? "))
+		if (clsInputValidate<bool>::ReadChoice("Delete Client ? "))
 		{
 			Permissions += clsUser::enPermissions::pDeleteClient;
 		}
-		if (clsInputValidate::ReadChoice("Update Client ? "))
+		if (clsInputValidate<bool>::ReadChoice("Update Client ? "))
 		{
 			Permissions += clsUser::enPermissions::pUpdateClient;
 		}
-		if (clsInputValidate::ReadChoice("Find Client ? "))
+		if (clsInputValidate<bool>::ReadChoice("Find Client ? "))
 		{
 			Permissions += clsUser::enPermissions::pFindClient;
 		}
-		if (clsInputValidate::ReadChoice("Transactions ? "))
+		if (clsInputValidate<bool>::ReadChoice("Transactions ? "))
 		{
 			Permissions += clsUser::enPermissions::pTransactions;
 		}
-		if (clsInputValidate::ReadChoice("Manage User ? "))
+		if (clsInputValidate<bool>::ReadChoice("Manage User ? "))
 		{
 			Permissions += clsUser::enPermissions::pManageUser;
 		}
-		if (clsInputValidate::ReadChoice("Login Register Screen ? "))
+		if (clsInputValidate<bool>::ReadChoice("Login Register Screen ? "))
 		{
 			Permissions += clsUser::enPermissions::pLoginRegisterScreen;
 		}
@@ -83,11 +83,11 @@ public:
 	{
 		_DrawScreenHeader("User Update Screen");
 		cout << "Enter User Name ? ";
-		string UserName = clsInputValidate::ReadString();
+		string UserName = clsInputValidate<string>::ReadString();
 		while (!clsUser::IsUserExist(UserName))
 		{
 			cout << "\nNo User Found, Please enter another one ? ";
-			UserName = clsInputValidate::ReadString();
+			UserName = clsInputValidate<string>::ReadString();
 		}
 		clsUser User = clsUser::Find(UserName);
 		

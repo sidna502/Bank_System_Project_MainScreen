@@ -25,18 +25,18 @@ public:
 	{
 		_DrawScreenHeader("Withdraw Screen");
 		cout << "\nEnter Account Number ? ";
-		string AccountNumber = clsInputValidate::ReadString();
+		string AccountNumber = clsInputValidate<string>::ReadString();
 		
 		while (!clsBankClient::IsClientExist(AccountNumber))
 		{
 			cout << "\nAccount Does not exist, enter another one ? ";
-			AccountNumber = clsInputValidate::ReadString();
+			AccountNumber = clsInputValidate<string>::ReadString();
 		}
 		clsBankClient Client = clsBankClient::Find(AccountNumber);
 		_PrintClientRecord(Client);
 
 		cout << "\nEnter withdraw amount ? ";
-		double Amount = clsInputValidate::ReadDblNumber("Invalid Number enter number again");
+		double Amount = clsInputValidate<double>::ReadNumber("Invalid Number enter number again");
 		char Answer = 'y';
 		
 		if (Client.Withdraw(Amount))

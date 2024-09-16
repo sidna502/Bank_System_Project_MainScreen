@@ -28,11 +28,11 @@ public:
 
 		_DrawScreenHeader("Delete Client Screen");
 		cout << "Enter Account number ? ";
-		string AccountNumber = clsInputValidate::ReadString();
+		string AccountNumber = clsInputValidate<string>::ReadString();
 		while (!clsBankClient::IsClientExist(AccountNumber))
 		{
 			cout << "\nAccount number not exist, ente another one ? ";
-			AccountNumber = clsInputValidate::ReadString();
+			AccountNumber = clsInputValidate<string>::ReadString();
 		}
 		clsBankClient Client = clsBankClient::Find(AccountNumber);
 		char answer = 'y';

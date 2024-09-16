@@ -21,7 +21,7 @@ class clsUpdateCurrencyRate : protected clsScreen
 		cout << "\nUpdate Currecny Rate:\n";
 		cout << "__________________________\n";
 		cout << "\nEnter New Rate: ";
-		Rate =  clsInputValidate::ReadFloatNumber();
+		Rate =  clsInputValidate<float>::ReadNumber();
 
 		return Rate;
 
@@ -45,17 +45,17 @@ public:
 	{
 		_DrawScreenHeader("Update Currency Screen");
 		cout << "\nPlease enter currency By [1] Code or [2] Country: ";
-		short Choice = clsInputValidate::ReadShortNumberBetween(1, 2, "Invalid number, enter number between 1 and 2");
+		short Choice = clsInputValidate<short>::ReadNumberBetween(1, 2, "Invalid number, enter number between 1 and 2");
 		
 		if (Choice == 1)
 		{
 			cout << "\nPlease enter Currency Code: ";
-			string CurrencyCode = clsInputValidate::ReadString();
+			string CurrencyCode = clsInputValidate<string>::ReadString();
 			clsCurrency Currency = clsCurrency::FindByCode(CurrencyCode);
 			while (Currency.IsEmpty())
 			{
 				cout << "\nCurrency code not found, enter another one ? ";
-				CurrencyCode = clsInputValidate::ReadString();
+				CurrencyCode = clsInputValidate<string>::ReadString();
 			}
 			_PrintCurrency(Currency);
 			_CheckUpdateCurrecy(Currency);
@@ -63,12 +63,12 @@ public:
 		else
 		{
 			cout << "\nPlease enter Country Name: ";
-			string CountryName = clsInputValidate::ReadString();
+			string CountryName = clsInputValidate<string>::ReadString();
 			clsCurrency Currency = clsCurrency::FindByCountry(CountryName);
 			while (Currency.IsEmpty())
 			{
 				cout << "\nCountry Name not found, enter another one ? ";
-				CountryName = clsInputValidate::ReadString();
+				CountryName = clsInputValidate<string>::ReadString();
 			}
 			_PrintCurrency(Currency);
 			_CheckUpdateCurrecy(Currency);

@@ -164,7 +164,7 @@ class clsMainScreen : protected clsScreen
 	static short _ReadOption()
 	{
 		cout << left << setw(37) << "" << "Choose what do you want to do from [1 to 10] ? ";
-		short Number = clsInputValidate::ReadShortNumberBetween(1, 10, "Out of range, please enter a number between 1 and 10");
+		short Number = clsInputValidate<short>::ReadNumberBetween(1, 10, "Out of range, please enter a number between 1 and 10");
 		return Number;
 	}
 

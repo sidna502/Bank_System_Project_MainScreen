@@ -39,7 +39,7 @@ class clsTransactionScreen : protected clsScreen
 	static short _ReadTransactionOptions()
 	{
 		cout << setw(37) << "" << "Choose you what do you want from [1 to 6] ? ";
-		short Choice = clsInputValidate::ReadShortNumberBetween(1, 6, "Out of range, enter a number beween [1 to 6] ? ");
+		short Choice = clsInputValidate<short>::ReadNumberBetween(1, 6, "Out of range, enter a number beween [1 to 6] ? ");
 		return Choice;
 	}
 	enum enTransactionOptions{eDeposit = 1, eWithdraw = 2, eTotalBalance = 3, eTransfer = 4,eTransferLog = 5,

@@ -7,22 +7,22 @@ class clsUpdateClientScreen : protected clsScreen
 	static void _ReadClientRecordInfo(clsBankClient& Client)
 	{
 		cout << "\nEnter First Name ? ";
-		Client.FirstName = clsInputValidate::ReadString();
+		Client.FirstName = clsInputValidate<string>::ReadString();
 
 		cout << "\nEnter Last Name ? ";
-		Client.LastName = clsInputValidate::ReadString();
+		Client.LastName = clsInputValidate<string>::ReadString();
 
 		cout << "\nEnter Email ? ";
-		Client.Email = clsInputValidate::ReadString();
+		Client.Email = clsInputValidate<string>::ReadString();
 
 		cout << "\nEnter Phone ? ";
-		Client.Phone = clsInputValidate::ReadString();
+		Client.Phone = clsInputValidate<string>::ReadString();
 
 		cout << "\nEnter Pin Code ? ";
-		Client.PinCode = clsInputValidate::ReadString();
+		Client.PinCode = clsInputValidate<string>::ReadString();
 
 		cout << "\nEnter Account Balance ? ";
-		Client.AccountBalance = clsInputValidate::ReadFloatNumber();
+		Client.AccountBalance = clsInputValidate<float>::ReadNumber();
 
 	}
 	static void _PrintClientDataRecord(clsBankClient Client)
@@ -50,11 +50,11 @@ public:
 		
 		_DrawScreenHeader("Update Client Screen");
 		cout << "Enter Account Number ? ";
-		string AccountNumber = clsInputValidate::ReadString();
+		string AccountNumber = clsInputValidate<string>::ReadString();
 		while (!clsBankClient::IsClientExist(AccountNumber))
 		{
 			cout << "\nAccount does not exist, enter another one ? ";
-			AccountNumber = clsInputValidate::ReadString();
+			AccountNumber = clsInputValidate<string>::ReadString();
 		}
 		clsBankClient Client = clsBankClient::Find(AccountNumber);
 		_PrintClientDataRecord(Client);

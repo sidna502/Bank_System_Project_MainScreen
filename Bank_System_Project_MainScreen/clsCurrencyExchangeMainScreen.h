@@ -34,7 +34,7 @@ class clsCurrencyExchangeMainScreen : protected clsScreen
 	static short _ReadOptions()
 	{
 		cout << setw(37) << left << "" << "Choose what do you want to do from [1 to 5] ? ";
-		short Choice = clsInputValidate::ReadIntNumberBetween(1, 5, "Out of range, please enter a number between 1 and 5");
+		short Choice = clsInputValidate<short>::ReadNumberBetween(1, 5, "Out of range, please enter a number between 1 and 5");
 		return Choice;
     }
 	static void _GoBackToMainMenue()

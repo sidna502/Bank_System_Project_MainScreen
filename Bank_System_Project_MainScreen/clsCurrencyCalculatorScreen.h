@@ -17,18 +17,18 @@ class clsCurrencyCalculatorScreen : protected clsScreen
 	{
 		float AmountToExchange = 0;
 		cout << "\nEnter Amount To Exchange: ";
-		AmountToExchange = clsInputValidate::ReadFloatNumber();
+		AmountToExchange = clsInputValidate<float>::ReadNumber();
 		return AmountToExchange;
 	}
 	static clsCurrency _GetCurrency(string Message)
 	{
 		cout << Message;
-		string CurrencyCode = clsInputValidate::ReadString();
+		string CurrencyCode = clsInputValidate<string>::ReadString();
 		clsCurrency Currency = clsCurrency::FindByCode(CurrencyCode);
 		while (!clsCurrency::IsCurrencyExist(CurrencyCode))
 		{
 			cout << "\nCurrency not found, enter another one ? ";
-			CurrencyCode = clsInputValidate::ReadString();
+			CurrencyCode = clsInputValidate<string>::ReadString();
 		}
 		return Currency;
 	}

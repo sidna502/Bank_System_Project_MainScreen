@@ -19,14 +19,14 @@ class clsFindCurrencyScreen : protected clsScreen
 	static enFindCurrency _ReadChoice()
 	{
 		cout << "\nFind By: [1] Code or [2] Country ? ";
-		short Choice = clsInputValidate::ReadIntNumberBetween(1, 2, "Out of range, please enter another one ? ");
+		short Choice = clsInputValidate<short>::ReadNumberBetween(1, 2, "Out of range, please enter another one ? ");
 		return (enFindCurrency)Choice;
 	}
 	static clsCurrency _FindByCode()
 	{
 		string CurrencyCode = "";
 		cout << "\nPlease enter Currency Code: ";
-		CurrencyCode = clsInputValidate::ReadString();
+		CurrencyCode = clsInputValidate<string>::ReadString();
 		clsCurrency Currency = clsCurrency::FindByCode(CurrencyCode);
 		/*if (!Currency1.IsEmpty())
 		{
@@ -43,7 +43,7 @@ class clsFindCurrencyScreen : protected clsScreen
 	{
 		string CountryName = "";
 		cout << "\nPlease enter Country Name: ";
-		CountryName = clsInputValidate::ReadString();
+		CountryName = clsInputValidate<string>::ReadString();
 		clsCurrency Currency = clsCurrency::FindByCountry(CountryName);
 		/*if (!Currency2.IsEmpty())
 		{
