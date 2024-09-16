@@ -10,12 +10,13 @@
 #include "clsManageUserScreen.h"
 #include "Global.h"
 #include "clsLoginRegisterScreen.h"
+#include "clsCurrencyExchangeMainScreen.h"
 
 class clsMainScreen : protected clsScreen
 {
 	enum enMainMenueOptions {
 		eListClients = 1, eAddNewClient = 2, eDeleteClient = 3, eUpdateClient = 4, eFindClient = 5,
-		eTransactions = 6, eManageUsers = 7, eLoginRegister = 8, eLogout = 9};
+		eTransactions = 6, eManageUsers = 7, eLoginRegister = 8, eCurrency = 9, eLogout = 10};
 
 	static void _ShowAllClientsScreen()
 	{
@@ -49,6 +50,11 @@ class clsMainScreen : protected clsScreen
 	{
 		clsLoginRegisterScreen::ShowLoginRegisterScreen();
 		
+	}
+	static void _ShowCurrencyExchangeScreen()
+	{
+		clsCurrencyExchangeMainScreen::MainMenueScreen();
+
 	}
 	static void _Logout()
 	{
@@ -137,6 +143,10 @@ class clsMainScreen : protected clsScreen
 			_ShowLoginRegisterListScreen();
 			_GoBackToMainMenue();
 			break;
+		case enMainMenueOptions::eCurrency:
+			_ShowCurrencyExchangeScreen();
+			_GoBackToMainMenue();
+			break;
 		case enMainMenueOptions::eLogout:
 
 			_Logout();
@@ -153,8 +163,8 @@ class clsMainScreen : protected clsScreen
 	
 	static short _ReadOption()
 	{
-		cout << left << setw(37) << "" << "Choose what do you want to do from [1 to 9] ? ";
-		short Number = clsInputValidate::ReadShortNumberBetween(1, 9, "Out of range, please enter a number between 1 and 8");
+		cout << left << setw(37) << "" << "Choose what do you want to do from [1 to 10] ? ";
+		short Number = clsInputValidate::ReadShortNumberBetween(1, 10, "Out of range, please enter a number between 1 and 10");
 		return Number;
 	}
 
@@ -174,7 +184,8 @@ public:
 		cout << setw(37) << "" << "\t[6] Transactions.\n";
 		cout << setw(37) << "" << "\t[7] Manage Users.\n";
 		cout << setw(37) << "" << "\t[8] Login Register.\n";
-		cout << setw(37) << "" << "\t[9] Logout.\n";
+		cout << setw(37) << "" << "\t[9] Currency Exchange.\n";
+		cout << setw(37) << "" << "\t[10] Logout.\n";
 		cout << setw(37) << "" << "==============================================\n";
 		_PerforMainMenueOption((enMainMenueOptions)_ReadOption());
 	}
